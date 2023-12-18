@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: shopping-cart-service
+  config:
+    import: optional:configserver:http://localhost:8888
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/
+      database: Week3Assignment
+    
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      default-zone: "http://localhost:8761/eureka"
+  instance:
+    hostname: localhost
+    instance-id: ${eureka.instance.hostname}:${server.port}
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10
+    status-page-url-path: /actuator/health
+    
+logging:
+  level:
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
+    
+server:
+  port: 9006
+  
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
